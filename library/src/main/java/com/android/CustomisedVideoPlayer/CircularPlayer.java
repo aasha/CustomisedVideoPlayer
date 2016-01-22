@@ -1,9 +1,7 @@
 package com.android.CustomisedVideoPlayer;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.*;
+import android.view.View;
 import android.widget.ImageView;
 import com.android.CustomisedVideoPlayer.player.BasePlayer;
 import com.android.CustomisedVideoPlayer.view.CircularSurfaceView;
