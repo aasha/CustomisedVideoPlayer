@@ -3,42 +3,32 @@ package com.android.CustomisedVideoPlayer;
 import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import com.android.CustomisedVideoPlayer.player.BasePlayer;
-import com.android.CustomisedVideoPlayer.view.HexagonalTextureView;
+import com.android.CustomisedVideoPlayer.view.CircularSurfaceView;
+import com.android.CustomisedVideoPlayer.view.HexagonalSurfaceView;
+import com.google.android.exoplayer.AspectRatioFrameLayout;
 
 public class HexagonalPlayer extends BasePlayer {
     private static final String TAG = HexagonalPlayer.class.getName();
-    // Context of activity
-    private Context mContext = null;
-    HexagonalTextureView mTextureView;
     public HexagonalPlayer(Context context) {
         super(context);
-        Log.e("AASHA", "Good");
-        mContext = context;
-        mTextureView = (HexagonalTextureView) mVideoFrame.findViewById(R.id.texture_view);
+        mVideoFrame = (AspectRatioFrameLayout) mInflater.inflate(R.layout.hexagonal_player_view, null);
+        mTranslucentView = (View) mVideoFrame.findViewById(R.id.translucent_view);
+        mSurfaceView = (HexagonalSurfaceView) mVideoFrame.findViewById(R.id.texture_view);
+        mYTPreviewPlayer = (ImageView) mVideoFrame.findViewById(R.id.yt_preview_player);
+    }
+
+    public void setRadius(int radius){
+        preparePlayer(false, radius);
     }
 
     public void preparePlayer(boolean playWhenReady, int radius) {
-        Log.e("AASHA", "Prepare ");
-        if (radius == 0) {
-            DisplayMetrics dm = new DisplayMetrics();
-            WindowManager windowManager = (WindowManager) mContext
-                    .getSystemService(Context.WINDOW_SERVICE);
-            windowManager.getDefaultDisplay().getMetrics(dm);
-            radius = (int) (56 * dm.density) / 2;
+        if(radius != 0) {
+            ((HexagonalSurfaceView)mSurfaceView).radius = radius;
         }
-        //mTextureView.radius = radius;
-        super.preparePlayer(playWhenReady);
-    }
-    public void preparePlayer(boolean playWhenReady) {
-        Log.e("AASHA", "Prepare ");
-            DisplayMetrics dm = new DisplayMetrics();
-            WindowManager windowManager = (WindowManager) mContext
-                    .getSystemService(Context.WINDOW_SERVICE);
-            windowManager.getDefaultDisplay().getMetrics(dm);
-            int radius = (int) (56 * dm.density) / 2;
-        //mTextureView.radius = radius;
         super.preparePlayer(playWhenReady);
     }
 }

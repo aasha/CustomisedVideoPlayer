@@ -4,35 +4,37 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.SurfaceView;
-import android.view.TextureView;
 
 /**
  * Created by aasha.medhi on 11/18/15.
  */
-public class CirclularTextureView extends TextureView {
+public class CircularSurfaceView extends SurfaceView {
 
     private Path circularPath;
-    public CirclularTextureView(Context context) {
+
+    public CircularSurfaceView(Context context) {
         super(context);
     }
 
-    public CirclularTextureView(Context context, AttributeSet attrs) {
+    public CircularSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CirclularTextureView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CircularSurfaceView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
-    public int mRadius = 30;// default
+    public int radius = 50;// default
 
     @Override
     protected void dispatchDraw(Canvas canvas) {
         circularPath = new Path();
         float density = this.getResources().getDisplayMetrics().density;
-        circularPath.addCircle(this.getPivotX(), this.getPivotY(), mRadius*density + 1, Path.Direction.CW);
+        circularPath.addCircle(this.getPivotX(), this.getPivotY(), radius * density, Path.Direction.CW);
         canvas.clipPath(circularPath);
+        super.dispatchDraw(canvas);
     }
 
 }

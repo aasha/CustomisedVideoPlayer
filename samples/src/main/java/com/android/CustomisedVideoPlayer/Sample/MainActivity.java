@@ -3,10 +3,14 @@ package com.android.CustomisedVideoPlayer.Sample;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.LinearLayout;
 import com.android.CustomisedVideoPlayer.CircularPlayer;
 import com.android.CustomisedVideoPlayer.HexagonalPlayer;
+import com.android.CustomisedVideoPlayer.SquarePlayer;
 import com.android.CustomisedVideoPlayer.player.BasePlayer;
+
+import java.io.File;
 
 /**
  * Created by aasha.medhi on 1/21/16.
@@ -32,13 +36,22 @@ public class MainActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         mainLayout = (LinearLayout)findViewById(R.id.main_layout);
-//        basePlayer = preparePlayer(PLAYER_TYPE.HEXAGONAL);
-//        mainLayout.addView(basePlayer.getVideoFrame());
-//        basePlayer.preparePlayer(true);
-        HexagonalPlayer player = new HexagonalPlayer(this);
-        player.setContentUri(Uri.parse("http://d3dxyccixtcsc2.cloudfront.net/vertical_videos/1113.mp4"));
-        mainLayout.addView(player.getVideoFrame());
-        player.preparePlayer(true);
+        basePlayer = preparePlayer(PLAYER_TYPE.HEXAGONAL);
+        basePlayer.getVideoFrame().setPadding(50, 50, 50 , 50);
+        mainLayout.addView(basePlayer.getVideoFrame());
+        basePlayer.preparePlayer(true);
+
+        basePlayer = preparePlayer(PLAYER_TYPE.CIRCULAR);
+        basePlayer.getVideoFrame().setPadding(0, 50, 50 , 50);
+        mainLayout.addView(basePlayer.getVideoFrame());
+        basePlayer.preparePlayer(true);
+
+        basePlayer = preparePlayer(PLAYER_TYPE.SQUARE);
+        basePlayer.getVideoFrame().setPadding(0, 50, 50 , 50);
+        mainLayout.addView(basePlayer.getVideoFrame());
+        basePlayer.preparePlayer(true);
+
+
     }
 
     private BasePlayer preparePlayer(PLAYER_TYPE player_type){
@@ -52,11 +65,12 @@ public class MainActivity extends Activity{
                 player = new CircularPlayer(this);
                 break;
             case 2:
+                player = new SquarePlayer(this);
                 break;
             case 3:
                 break;
         }
-        player.setContentUri(Uri.parse("http://d3dxyccixtcsc2.cloudfront.net/vertical_videos/1113.mp4"));
+        player.setContentUri(Uri.parse("file:///android_asset/video.mp4"));
         return player;
     }
 }

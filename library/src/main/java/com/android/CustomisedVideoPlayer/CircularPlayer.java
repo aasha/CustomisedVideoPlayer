@@ -1,37 +1,30 @@
 package com.android.CustomisedVideoPlayer;
 
 import android.content.Context;
-import android.graphics.SurfaceTexture;
-import android.net.Uri;
 import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.ImageView;
 import com.android.CustomisedVideoPlayer.player.BasePlayer;
-import com.android.CustomisedVideoPlayer.player.DemoPlayer;
-import com.android.CustomisedVideoPlayer.player.ExtractorRendererBuilder;
-import com.android.CustomisedVideoPlayer.view.CirclularTextureView;
-import com.android.CustomisedVideoPlayer.view.HexagonalTextureView;
+import com.android.CustomisedVideoPlayer.view.CircularSurfaceView;
 import com.google.android.exoplayer.AspectRatioFrameLayout;
-import com.google.android.exoplayer.util.Util;
 
-public class CircularPlayer extends BasePlayer{
+public class CircularPlayer extends BasePlayer {
     private static final String TAG = CircularPlayer.class.getName();
-    // Context of activity
-    private Context mContext = null;
     public CircularPlayer(Context context) {
         super(context);
-        mTextureView = (CirclularTextureView) mVideoFrame.findViewById(R.id.texture_view);
+        mVideoFrame = (AspectRatioFrameLayout) mInflater.inflate(R.layout.circular_player_view, null);
+        mTranslucentView = (View) mVideoFrame.findViewById(R.id.translucent_view);
+        mSurfaceView = (CircularSurfaceView) mVideoFrame.findViewById(R.id.texture_view);
+        mYTPreviewPlayer = (ImageView) mVideoFrame.findViewById(R.id.yt_preview_player);
     }
 
+    public void setRadius(int radius){
+        preparePlayer(false, radius);
+    }
     public void preparePlayer(boolean playWhenReady, int radius) {
-        if(radius == 0) {
-            DisplayMetrics dm = new DisplayMetrics();
-            WindowManager windowManager = (WindowManager) mContext
-                    .getSystemService(Context.WINDOW_SERVICE);
-            windowManager.getDefaultDisplay().getMetrics(dm);
-            radius = (int)(56 * dm.density)/2;
+        if(radius != 0) {
+            ((CircularSurfaceView)mSurfaceView).radius = radius;
         }
-       // mTextureView.radius = radius;
         super.preparePlayer(playWhenReady);
     }
 }
