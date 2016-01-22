@@ -66,13 +66,13 @@ public class BasePlayer {
                 }
             }
         });
+        mYTPreviewPlayer = (ImageView) mVideoFrame.findViewById(R.id.yt_preview_player);
         mTranslucentView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 restartPlayer();
             }
         });
-        mYTPreviewPlayer = (ImageView) mVideoFrame.findViewById(R.id.yt_preview_player);
     }
 
     public void preparePlayer(boolean playWhenReady) {
@@ -107,9 +107,6 @@ public class BasePlayer {
     }
 
     public void restartPlayer() {
-        if (mExoPlayer == null) {
-            return;
-        }
         releasePlayer();
         mPlayerPosition = 0;
         preparePlayer(true);

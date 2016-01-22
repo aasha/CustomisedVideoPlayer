@@ -23,7 +23,8 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:background="#00000000"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_gravity="center" />
 
 
 </com.google.android.exoplayer.AspectRatioFrameLayout><!-- From: file:/Users/aasha.medhi/Documents/myopensource/CustomisedVideoPlayer/library/src/main/res/layout/player_view.xml -->

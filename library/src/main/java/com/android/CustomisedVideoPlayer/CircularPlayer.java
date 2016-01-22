@@ -2,6 +2,7 @@ package com.android.CustomisedVideoPlayer;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.*;
 import android.widget.ImageView;
 import com.android.CustomisedVideoPlayer.player.BasePlayer;
@@ -16,6 +17,12 @@ public class CircularPlayer extends BasePlayer {
         mTranslucentView = (View) mVideoFrame.findViewById(R.id.translucent_view);
         mSurfaceView = (CircularSurfaceView) mVideoFrame.findViewById(R.id.texture_view);
         mYTPreviewPlayer = (ImageView) mVideoFrame.findViewById(R.id.yt_preview_player);
+        mTranslucentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartPlayer();
+            }
+        });
     }
 
     public void setRadius(int radius){

@@ -19,6 +19,12 @@ public class HexagonalPlayer extends BasePlayer {
         mTranslucentView = (View) mVideoFrame.findViewById(R.id.translucent_view);
         mSurfaceView = (HexagonalSurfaceView) mVideoFrame.findViewById(R.id.texture_view);
         mYTPreviewPlayer = (ImageView) mVideoFrame.findViewById(R.id.yt_preview_player);
+        mTranslucentView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                restartPlayer();
+            }
+        });
     }
 
     public void setRadius(int radius){
